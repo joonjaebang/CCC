@@ -1,0 +1,3 @@
+text editor#gedit &#
+internet#firefox &#
+end program#exit#
