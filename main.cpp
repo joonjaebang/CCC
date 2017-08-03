@@ -17,7 +17,7 @@ int main(){
 
 	while(1){
 		string input;
-	//If there is network or command line input
+		//If there is network or command line input
 		if(getline(cin, input, '\n')){
 			_(cout << "Input detected: " << input << "\n";)
 			string result = settings.processInput(input);
