@@ -4,19 +4,14 @@ void Configure::initialize(std::istream& configFile){
 	std::string line;
 	while(getline(configFile, line, '\n')){
 		std::vector<std::string> inputs = split(line, '#');
-		settings.insert(std::pair<std::string, std::string>(inputs.at(0), inputs.at(1)));
+		config_Entry* entry = new config_Entry;
+		entry->command = inputs.at(0);
+		entry->auth_Code = std::stoi(inputs.at(1));
+		entry->program = inputs.at(2);
+		settings.push_back(entry);
 	}
+	_(printSettings(settings);)
 	return;
-}
-
-std::string Configure::processInput(std::string input){
-	std::map<std::string, std::string>::iterator it = settings.find(input);
-	if(it != settings.end()){
-		return it->second;
-	} else {
-		std::string dummy = "";
-		return dummy;
-	}
 }
 
 std::vector<std::string> split(std::string input, char delim){
@@ -27,7 +22,12 @@ std::vector<std::string> split(std::string input, char delim){
 	while(std::getline(ss, segment, delim)){
 		result.push_back(segment);
 	}
-	_(std::cout << "Segment 1: " << result.at(0) << "\n";)
-	_(std::cout << "Segment 2: " << result.at(1) << "\n";)
 	return result;
+}
+
+void Configure::printSettings(std::vector<config_Entry*> settings){
+	for(auto it=settings.begin(); it<settings.end(); ++it){
+		std::cout << (*it)->command << " : " << (*it)->auth_Code << " : " << (*it)->program << "\n";
+	}
+	return;
 }

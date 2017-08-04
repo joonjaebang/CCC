@@ -1,3 +1,4 @@
-text editor#gedit &#
-internet#firefox &#
-end program#exit#
+text editor#443#gedit &#
+internet#142#firefox &#
+end program#808#exit#
+shut down#404#poweroff#

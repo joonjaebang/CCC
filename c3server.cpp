@@ -3,15 +3,14 @@
 void C3Server::handle_connection(int sockfd){
 	char buffer[256];
 	while(recv(sockfd, buffer, 255, 0) > 0){
-		std::string command, auth_string;
-		int authorization;
-// 		std::cout << buffer;
-// 		send(sockfd, (void*)responseChar, strlen(responseChar), MSG_NOSIGNAL);
+		int auth_code;
 		std::stringstream ss;
+		std::string command, auth_string;
+		
 		ss << buffer;
 		std::getline(ss, command, '#');
 		std::getline(ss, auth_string, '#');
-		authorization = std::atoi(auth_string.c_str());
+		auth_code = std::atoi(auth_string.c_str());
 		bzero(buffer, 256);
 	}
 	return;

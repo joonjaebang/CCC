@@ -4,29 +4,20 @@
 #include <string>
 #include "define.h"
 #include "configure.h"
+#include "c3server.h"
 
 using namespace std;
 
 int main(){
+	C3Server c3server;
+	
 	//Read in configuration file data
 	ifstream fileData;
 	fileData.open("configure.txt");
-	Configure settings;
-	settings.initialize(fileData);
+	c3server.settings.initialize(fileData);
 	fileData.close();
 
-	while(1){
-		string input;
-		//If there is network or command line input
-		if(getline(cin, input, '\n')){
-			_(cout << "Input detected: " << input << "\n";)
-			string result = settings.processInput(input);
-			if(result != ""){
-				system(result.c_str());
-			} else {
-				cout << "No option detected.\n";
-			}
-		}
-	}
+	c3server.initialize(1337);
+	
 	return 0;
 }

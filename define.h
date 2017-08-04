@@ -1,11 +1,8 @@
-#ifndef DEFINE_H
-#define DEFINE_H
+#pragma once
 
-//#define DEBUG
+#define DEBUG
 #ifndef DEBUG
 #define _(x) 
 #else
 #define _(x) x
-#endif
-
 #endif

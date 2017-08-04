@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -5,8 +7,6 @@
 #include <thread>
 #include <map>
 #include "define.h"
-
-extern std::map<std::string, std::string> authentication;
 
 class Server{
 	private:
@@ -19,4 +19,3 @@ class Server{
 		void sendMessage(int sockfd, std::string prompt);
 		~Server() {}
 };
-

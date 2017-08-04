@@ -1,3 +1,5 @@
+#pragma once
+
 #include "server.h"
 #include "configure.h"
 #include <fstream>

@@ -1,20 +1,29 @@
+#pragma once
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
 #include <map>
+#include <cstdlib>
+#include <vector>
 #include "define.h"
+
+struct config_Entry{
+	std::string command;
+	int auth_Code;
+	std::string program;
+};
 
 class Configure{
 private:
-	std::map<std::string, std::string> settings;
+	std::vector<config_Entry*> settings;
 public:
 	Configure () {}
 	void initialize(std::istream& configFile);
-	std::string processInput(std::string input);
+	void printSettings(std::vector<config_Entry*> settings);
 	~Configure () {}
-	void getline(std::istream configFile, std::__cxx11::string line, char arg3);
 };
 
 std::vector<std::string> split(std::string input, char delim);
