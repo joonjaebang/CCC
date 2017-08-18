@@ -23,6 +23,7 @@ public:
 	Configure () {}
 	void initialize(std::istream& configFile);
 	void printSettings(std::vector<config_Entry*> settings);
+	std::vector<config_Entry*> return_Settings();
 	~Configure () {}
 };
 

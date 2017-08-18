@@ -10,7 +10,7 @@
 
 class Server{
 	private:
-		void handle_connection(int sockfd);
+		virtual void handle_connection(int sockfd);
 	public:
 		Server() {}
 		void initialize(int port);

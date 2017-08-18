@@ -14,7 +14,7 @@ int main(){
 	//Read in configuration file data
 	ifstream fileData;
 	fileData.open("configure.txt");
-	c3server.settings.initialize(fileData);
+	c3server.configure_settings(fileData);
 	fileData.close();
 
 	c3server.initialize(1337);

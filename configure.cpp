@@ -31,3 +31,9 @@ void Configure::printSettings(std::vector<config_Entry*> settings){
 	}
 	return;
 }
+
+std::vector< config_Entry* > Configure::return_Settings()
+{
+	return settings;
+}
+
