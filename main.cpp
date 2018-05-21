@@ -9,15 +9,15 @@
 using namespace std;
 
 int main(){
-	C3Server c3server;
+	Server server;
 	
 	//Read in configuration file data
 	ifstream fileData;
 	fileData.open("configure.txt");
-	c3server.configure_settings(fileData);
+//	server.configure_settings(fileData);
 	fileData.close();
 
-	c3server.initialize(1337);
+	server.initialize(1337, true);
 	
 	return 0;
 }

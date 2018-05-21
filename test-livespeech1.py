@@ -16,7 +16,6 @@ speech = LiveSpeech(
 	dic=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'custom.dict')
 )
 
-
 for phrase in speech:
 	print(phrase)
 	sys.stdout.flush()

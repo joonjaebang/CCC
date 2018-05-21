@@ -1,6 +1,52 @@
+#include "define.h"
 #include "server.h"
+#include <map>
+#include <thread>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <netinet/in.h>
 
-void Server::initialize(int port){
+void Server::initialize(int port, bool daemon){
+	if(daemon){
+		pid_t process_id = 0;
+		pid_t sid = 0;
+		
+		process_id = fork();	
+		if(process_id < 0){
+			perror("Error: Failed to create child process.\n");
+			exit(1);
+		}
+
+		if(process_id > 0){
+			printf("Success: Created child process.\n");
+			exit(0);
+		}
+		
+		umask(0);
+		sid = setsid();
+		if(sid < 0){
+			perror("Error: Failed to set sid.\n");
+		}
+		
+		process_id = fork();
+		if(process_id < 0){
+			perror("Error: Failed double fork.\n");
+			exit(1);
+		}
+
+		if(process_id > 0){
+			printf("Success: Double fork.\n");
+			exit(0);
+		}
+
+		chdir("/tmp");
+
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
+	}
+
 	int sockfd;
 	struct sockaddr_in serv_addr;
 	
@@ -14,7 +60,7 @@ void Server::initialize(int port){
 	//Bind socket
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family 		= AF_INET;
-	serv_addr.sin_port		= htons(port);
+	serv_addr.sin_port			= htons(port);
 	serv_addr.sin_addr.s_addr	= INADDR_ANY;
 	if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0){
 		perror("Error: Failed to bind socket to address.\n");
@@ -28,14 +74,15 @@ void Server::initialize(int port){
 void Server::start_listening(int socket){
 	while(1){
 		int newsockfd = -1;
-		struct sockaddr_in cli_addr;
-		socklen_t clilen = sizeof(cli_addr);
+		struct sockaddr_in client_addr;
+		socklen_t client_len = sizeof(client_addr);
 	
 		listen(socket, 5);
-		newsockfd = accept(socket, (struct sockaddr *) &cli_addr, &clilen);
+		newsockfd = accept(socket, (struct sockaddr *) &client_addr, &client_len);
 	
 		if(newsockfd < 0){
 			perror("Error: Failed to connect to incoming connection.\n");
+			exit(1);
 		}
 
 		//Start new thread to handle request

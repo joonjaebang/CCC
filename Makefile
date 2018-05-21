@@ -21,4 +21,4 @@ server.o: server.cpp server.h configure.h	Makefile
 	$(CC) $(CXXFLAGS) server.cpp $(CFLAG) -o server.o
 
 clean:
-	-rm *.o *~ $(EXEC)
+	-rm *.o $(EXEC)

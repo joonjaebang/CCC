@@ -1,4 +1,6 @@
 #include "c3server.h"
+#include <cstdlib>
+#include <sys/socket.h>
 
 void C3Server::handle_connection(int sockfd){
 	char buffer[256];

@@ -3,7 +3,7 @@
 #include "server.h"
 #include "configure.h"
 #include <fstream>
-#include <cstdlib>
+#include <unistd.h>
 
 class C3Server : public Server{
 private:
